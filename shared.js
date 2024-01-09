@@ -728,9 +728,18 @@ class API {
     await this.ready;
     this.memfs.addFile(input, contents);
     const clang = await this.getModule(this.clangFilename);
-    return await this.run(clang, 'clang', '-cc1', '-emit-obj',
-                          ...this.clangCommonArgs, '-O2', '-o', obj, '-x',
-                          'c++', input);
+    return await this.run(clang,
+                          'clang',
+                          '-cc1',
+                          '-emit-obj',
+                          ...this.clangCommonArgs,
+                          '-O0',
+                          '-o', obj,
+                          '-x', 'c',
+                          '-Wall',
+                          '-Wextra',
+                          '-std=c99',
+                          input);
   }
 
   async compileToAssembly(options) {
@@ -779,13 +788,13 @@ class API {
   }
 
   async run(module, ...args) {
-    this.hostLog(`${args.join(' ')}\n`);
+    // this.hostLog(`${args.join(' ')}\n`);
     const start = +new Date();
     const app = new App(module, this.memfs, ...args);
     const instantiate = +new Date();
     const stillRunning = await app.run();
     const end = +new Date();
-    this.hostWrite('\n');
+    // this.hostWrite('\n');
     if (this.showTiming) {
       const green = '\x1b[92m';
       const normal = '\x1b[0m';
