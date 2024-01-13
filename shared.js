@@ -671,6 +671,7 @@ class API {
       '-ferror-limit', '19',
       '-fmessage-length', '80',
       '-fcolor-diagnostics',
+      '-fsyntax-only',
     ];
 
     this.memfs = new MemFS({
@@ -738,6 +739,8 @@ class API {
                           '-x', 'c',
                           '-Wall',
                           '-Wextra',
+                          '-pedantic',
+                          '-Werror=implicit-function-declaration',
                           '-std=c99',
                           input);
   }
