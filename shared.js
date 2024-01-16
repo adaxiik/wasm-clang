@@ -740,8 +740,15 @@ class API {
                           '-Wall',
                           '-Wextra',
                           '-pedantic',
-                          '-Werror=implicit-function-declaration',
                           '-std=c99',
+                          '-Wno-unused-parameter',
+                          '-Wno-unused-variable',
+                          '-Wno-unused-function',
+                          '-Wno-unused-value',
+                          '-Wno-implicit-float-conversion',
+                          '-Wno-implicit-int-conversion',
+                          '-Wno-int-conversion',
+                          '-Werror',
                           input);
   }
 
